@@ -1,0 +1,1644 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/14/2022 8:50:23 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-2PVT614"
+  DTS:CreatorName="DESKTOP-2PVT614\fairy"
+  DTS:DTSID="{E6F060A6-E584-4BDE-8CF2-F971DFEDAC9A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="ERP2ND to PSA  Feit"
+  DTS:PackageType="5"
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{A2C363CC-5ED2-4CFE-817B-86E280CC6C44}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load PSA_F_Voyage"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{FDA3766D-2D1E-484F-B622-33C5C4A15D6C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load PSA_F_Voyage"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load PSA_F_Voyage\Derived Column Delay in days"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column Delay in days"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Inputs[Derived Column Input].Columns[LegDateDepart]"
+                      cachedDataType="dbDate"
+                      cachedName="LegDateDepart"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateDepart]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Inputs[Derived Column Input].Columns[LegDateArrival]"
+                      cachedDataType="dbDate"
+                      cachedName="LegDateArrival"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Match Output].Columns[LegDateArrival]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Output].Columns[DelayInDays]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Output].Columns[DelayInDays]"
+                      name="DelayInDays"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[DATEDIFF]("DD",#{Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Match Output].Columns[LegDateArrival]},#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateDepart]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">DATEDIFF("DD",[Lookup Previous].LegDateArrival,LegDateDepart)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PSA_F_Voyage\Lookup F_Shipment"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup F_Shipment"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[F_Shipment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[F_Shipment]) [refTable]
+where [refTable].[VoyageId] = ? and [refTable].[PortIdFrom] = ? and [refTable].[PortIdTo] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VoyageId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdFrom" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdTo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TotalAmountContainers" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageId]};#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdCurrent]};#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdNext]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Connections[OleDbConnection]"
+                  connectionManagerID="{E0B0A7F9-58BC-4210-A60C-A64669181232}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.KramseERP2ND]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Inputs[Lookup Input].Columns[VoyageId]"
+                      cachedDataType="i4"
+                      cachedName="VoyageId"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VoyageId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Inputs[Lookup Input].Columns[PortIdCurrent]"
+                      cachedDataType="i4"
+                      cachedName="PortIdCurrent"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdCurrent]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdFrom</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Inputs[Lookup Input].Columns[PortIdNext]"
+                      cachedDataType="i4"
+                      cachedName="PortIdNext"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdNext]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdTo</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Match Output].Columns[TotalAmountContainers]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Match Output].Columns[TotalAmountContainers]"
+                      name="TotalAmountContainers"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">TotalAmountContainers</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PSA_F_Voyage\Lookup Previous"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup Previous"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[F_Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[F_Voyage]) [refTable]
+where [refTable].[VoyageId] = ? and [refTable].[ShipId] = ? and [refTable].[VoyageDateDepart] = ? and [refTable].[PortIdStart] = ? and [refTable].[PortIdEnd] = ? and [refTable].[PortIdNext] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VoyageId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VoyageDateDepart" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdStart" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdEnd" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdCurrent" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdNext" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LegDateDepart" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LegDateArrival" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TrajectDistance" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageId]};#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[ShipId]};#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageDateDepart]};#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdStart]};#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdEnd]};#{Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdCurrent]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load PSA_F_Voyage\Lookup Previous.Connections[OleDbConnection]"
+                  connectionManagerID="{E0B0A7F9-58BC-4210-A60C-A64669181232}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.KramseERP2ND]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input].Columns[VoyageId]"
+                      cachedDataType="i4"
+                      cachedName="VoyageId"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VoyageId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input].Columns[ShipId]"
+                      cachedDataType="i4"
+                      cachedName="ShipId"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[ShipId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ShipId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input].Columns[VoyageDateDepart]"
+                      cachedDataType="dbDate"
+                      cachedName="VoyageDateDepart"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageDateDepart]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">VoyageDateDepart</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input].Columns[PortIdStart]"
+                      cachedDataType="i4"
+                      cachedName="PortIdStart"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdStart]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdStart</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input].Columns[PortIdEnd]"
+                      cachedDataType="i4"
+                      cachedName="PortIdEnd"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdEnd]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdEnd</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input].Columns[PortIdCurrent]"
+                      cachedDataType="i4"
+                      cachedName="PortIdCurrent"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdCurrent]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdNext</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Match Output].Columns[LegDateArrival]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Match Output].Columns[LegDateArrival]"
+                      name="LegDateArrival"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">LegDateArrival</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PSA_F_Voyage\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PSA_F_Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load PSA_F_Voyage\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{4D42986C-60DE-4B4B-9E92-3388DE5ED984}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.KramsePSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VoyageId]"
+                      cachedDataType="i4"
+                      cachedName="VoyageId"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageId]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ShipId]"
+                      cachedDataType="i4"
+                      cachedName="ShipId"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[ShipId]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VoyageDateDepart]"
+                      cachedDataType="dbDate"
+                      cachedName="VoyageDateDepart"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageDateDepart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageDateDepart]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdStart]"
+                      cachedDataType="i4"
+                      cachedName="PortIdStart"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdStart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdStart]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdEnd]"
+                      cachedDataType="i4"
+                      cachedName="PortIdEnd"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdEnd]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdEnd]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdCurrent]"
+                      cachedDataType="i4"
+                      cachedName="PortIdCurrent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdCurrent]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdCurrent]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdNext]"
+                      cachedDataType="i4"
+                      cachedName="PortIdNext"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdNext]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdNext]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LegDateDepart]"
+                      cachedDataType="dbDate"
+                      cachedName="LegDateDepart"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateDepart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateDepart]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TrajectDistance]"
+                      cachedDataType="i4"
+                      cachedName="TrajectDistance"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TrajectDistance]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[TrajectDistance]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TotalAmountContainers]"
+                      cachedDataType="i4"
+                      cachedName="TotalAmountContainers"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalAmountContainers]"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Match Output].Columns[TotalAmountContainers]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DelayInDays]"
+                      cachedDataType="i4"
+                      cachedName="DelayInDays"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DelayInDays]"
+                      lineageId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Output].Columns[DelayInDays]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LegDateArrival]"
+                      cachedDataType="dbDate"
+                      cachedName="LegDateArrival"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateArrival]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateArrival]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
+                      dataType="i4"
+                      name="ShipId" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageDateDepart]"
+                      dataType="dbDate"
+                      name="VoyageDateDepart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdStart]"
+                      dataType="i4"
+                      name="PortIdStart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdEnd]"
+                      dataType="i4"
+                      name="PortIdEnd" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdCurrent]"
+                      dataType="i4"
+                      name="PortIdCurrent" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdNext]"
+                      dataType="i4"
+                      name="PortIdNext" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateDepart]"
+                      dataType="dbDate"
+                      name="LegDateDepart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateArrival]"
+                      dataType="dbDate"
+                      name="LegDateArrival" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TrajectDistance]"
+                      dataType="i4"
+                      name="TrajectDistance" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalAmountContainers]"
+                      dataType="i4"
+                      name="TotalAmountContainers" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DelayInDays]"
+                      dataType="i4"
+                      name="DelayInDays" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExtractionDate]"
+                      dataType="dbDate"
+                      name="ExtractionDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PSA_F_Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PSA_F_Voyage\OLE DB Destination 1"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination 1"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PSA_F_Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Connections[OleDbConnection]"
+                  connectionManagerID="{4D42986C-60DE-4B4B-9E92-3388DE5ED984}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.KramsePSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[VoyageId]"
+                      cachedDataType="i4"
+                      cachedName="VoyageId"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageId]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[ShipId]"
+                      cachedDataType="i4"
+                      cachedName="ShipId"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[ShipId]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[VoyageDateDepart]"
+                      cachedDataType="dbDate"
+                      cachedName="VoyageDateDepart"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[VoyageDateDepart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageDateDepart]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[PortIdStart]"
+                      cachedDataType="i4"
+                      cachedName="PortIdStart"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[PortIdStart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdStart]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[PortIdEnd]"
+                      cachedDataType="i4"
+                      cachedName="PortIdEnd"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[PortIdEnd]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdEnd]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[PortIdCurrent]"
+                      cachedDataType="i4"
+                      cachedName="PortIdCurrent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[PortIdCurrent]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdCurrent]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[PortIdNext]"
+                      cachedDataType="i4"
+                      cachedName="PortIdNext"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[PortIdNext]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdNext]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[LegDateDepart]"
+                      cachedDataType="dbDate"
+                      cachedName="LegDateDepart"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[LegDateDepart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateDepart]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[LegDateArrival]"
+                      cachedDataType="dbDate"
+                      cachedName="LegDateArrival"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[LegDateArrival]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateArrival]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[TrajectDistance]"
+                      cachedDataType="i4"
+                      cachedName="TrajectDistance"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[TrajectDistance]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[TrajectDistance]" />
+                    <inputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[TotalAmountContainers]"
+                      cachedDataType="i4"
+                      cachedName="TotalAmountContainers"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[TotalAmountContainers]"
+                      lineageId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Match Output].Columns[TotalAmountContainers]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
+                      dataType="i4"
+                      name="ShipId" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[VoyageDateDepart]"
+                      dataType="dbDate"
+                      name="VoyageDateDepart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[PortIdStart]"
+                      dataType="i4"
+                      name="PortIdStart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[PortIdEnd]"
+                      dataType="i4"
+                      name="PortIdEnd" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[PortIdCurrent]"
+                      dataType="i4"
+                      name="PortIdCurrent" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[PortIdNext]"
+                      dataType="i4"
+                      name="PortIdNext" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[LegDateDepart]"
+                      dataType="dbDate"
+                      name="LegDateDepart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[LegDateArrival]"
+                      dataType="dbDate"
+                      name="LegDateArrival" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[TrajectDistance]"
+                      dataType="i4"
+                      name="TrajectDistance" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[TotalAmountContainers]"
+                      dataType="i4"
+                      name="TotalAmountContainers" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[DelayInDays]"
+                      dataType="i4"
+                      name="DelayInDays" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[ExtractionDate]"
+                      dataType="dbDate"
+                      name="ExtractionDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load PSA_F_Voyage\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[F_Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load PSA_F_Voyage\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{E0B0A7F9-58BC-4210-A60C-A64669181232}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.KramseERP2ND]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageId]"
+                      name="VoyageId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[ShipId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ShipId]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[ShipId]"
+                      name="ShipId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageDateDepart]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VoyageDateDepart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[VoyageDateDepart]"
+                      name="VoyageDateDepart"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdStart]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PortIdStart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdStart]"
+                      name="PortIdStart"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdEnd]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PortIdEnd]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdEnd]"
+                      name="PortIdEnd"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdCurrent]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PortIdCurrent]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdCurrent]"
+                      name="PortIdCurrent"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdNext]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PortIdNext]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[PortIdNext]"
+                      name="PortIdNext"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateDepart]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LegDateDepart]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateDepart]"
+                      name="LegDateDepart"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateArrival]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LegDateArrival]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[LegDateArrival]"
+                      name="LegDateArrival"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[TrajectDistance]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TrajectDistance]"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].Columns[TrajectDistance]"
+                      name="TrajectDistance"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ShipId]"
+                      dataType="i4"
+                      name="ShipId" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VoyageDateDepart]"
+                      dataType="dbDate"
+                      name="VoyageDateDepart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PortIdStart]"
+                      dataType="i4"
+                      name="PortIdStart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PortIdEnd]"
+                      dataType="i4"
+                      name="PortIdEnd" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PortIdCurrent]"
+                      dataType="i4"
+                      name="PortIdCurrent" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PortIdNext]"
+                      dataType="i4"
+                      name="PortIdNext" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LegDateDepart]"
+                      dataType="dbDate"
+                      name="LegDateDepart" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LegDateArrival]"
+                      dataType="dbDate"
+                      name="LegDateArrival" />
+                    <externalMetadataColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TrajectDistance]"
+                      dataType="i4"
+                      name="TrajectDistance" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VoyageId]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VoyageId]"
+                      name="VoyageId" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ShipId]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ShipId]"
+                      name="ShipId" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VoyageDateDepart]"
+                      dataType="dbDate"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VoyageDateDepart]"
+                      name="VoyageDateDepart" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PortIdStart]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PortIdStart]"
+                      name="PortIdStart" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PortIdEnd]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PortIdEnd]"
+                      name="PortIdEnd" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PortIdCurrent]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PortIdCurrent]"
+                      name="PortIdCurrent" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PortIdNext]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PortIdNext]"
+                      name="PortIdNext" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LegDateDepart]"
+                      dataType="dbDate"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LegDateDepart]"
+                      name="LegDateDepart" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LegDateArrival]"
+                      dataType="dbDate"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LegDateArrival]"
+                      name="LegDateArrival" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TrajectDistance]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TrajectDistance]"
+                      name="TrajectDistance" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load PSA_F_Voyage.Paths[Derived Column Output]"
+              endId="Package\Load PSA_F_Voyage\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load PSA_F_Voyage.Paths[Lookup Match Output]"
+              endId="Package\Load PSA_F_Voyage\Lookup Previous.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load PSA_F_Voyage.Paths[Lookup Match Output1]"
+              endId="Package\Load PSA_F_Voyage\Derived Column Delay in days.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load PSA_F_Voyage.Paths[Lookup No Match Output]"
+              endId="Package\Load PSA_F_Voyage\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Load PSA_F_Voyage\Lookup Previous.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Load PSA_F_Voyage.Paths[OLE DB Source Output]"
+              endId="Package\Load PSA_F_Voyage\Lookup F_Shipment.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load PSA_F_Voyage\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="174.4,41.6"
+          Id="Package\Load PSA_F_Voyage"
+          TopLeft="403.571435444209,138.411766647055" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load PSA_F_Voyage">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Load PSA_F_Voyage\OLE DB Destination"
+          TopLeft="399.28572108551,412.176476368855" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load PSA_F_Voyage\Lookup F_Shipment"
+          TopLeft="384.285720830061,104.764707351638" />
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Load PSA_F_Voyage\Lookup Previous"
+          TopLeft="407.857149802909,230.941179709451" />
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Load PSA_F_Voyage\OLE DB Destination 1"
+          TopLeft="727.142869526027,260.76470953948" />
+        <NodeLayout
+          Size="219.2,41.6"
+          Id="Package\Load PSA_F_Voyage\Derived Column Delay in days"
+          TopLeft="432.142864502206,324.235298664925" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Load PSA_F_Voyage\OLE DB Source"
+          TopLeft="372.857149206862,36.7058828677273" />
+        <EdgeLayout
+          Id="Package\Load PSA_F_Voyage.Paths[Lookup Match Output]"
+          TopLeft="469.885720830061,146.364707351638">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="15.5714289728477,84.5764723578126"
+              Start="0,0"
+              End="15.5714289728477,77.0764723578126">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.2882361789063" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.2882361789063"
+                    Point2="0,42.2882361789063"
+                    Point3="4,42.2882361789063" />
+                  <mssgle:LineSegment
+                    End="11.5714289728477,42.2882361789063" />
+                  <mssgle:CubicBezierSegment
+                    Point1="11.5714289728477,42.2882361789063"
+                    Point2="15.5714289728477,42.2882361789063"
+                    Point3="15.5714289728477,46.2882361789063" />
+                  <mssgle:LineSegment
+                    End="15.5714289728477,77.0764723578126" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.4056722323262,47.2882361789063,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load PSA_F_Voyage.Paths[Derived Column Output]"
+          TopLeft="541.742864502206,365.835298664925">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-57.2571434166965,46.34117770393"
+              Start="0,0"
+              End="-57.2571434166965,38.84117770393">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.170588851965" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.170588851965"
+                    Point2="0,23.170588851965"
+                    Point3="-4,23.170588851965" />
+                  <mssgle:LineSegment
+                    End="-53.2571434166965,23.170588851965" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-53.2571434166965,23.170588851965"
+                    Point2="-57.2571434166965,23.170588851965"
+                    Point3="-57.2571434166965,27.170588851965" />
+                  <mssgle:LineSegment
+                    End="-57.2571434166965,38.84117770393" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load PSA_F_Voyage.Paths[OLE DB Source Output]"
+          TopLeft="447.657149206862,78.3058828677273">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.2285716231989,26.4588244839111"
+              Start="0,0"
+              End="22.2285716231989,18.9588244839111">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.22941224195554" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.22941224195554"
+                    Point2="0,13.2294122419555"
+                    Point3="4,13.2294122419555" />
+                  <mssgle:LineSegment
+                    End="18.2285716231989,13.2294122419555" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.2285716231989,13.2294122419555"
+                    Point2="22.2285716231989,13.2294122419555"
+                    Point3="22.2285716231989,17.2294122419555" />
+                  <mssgle:LineSegment
+                    End="22.2285716231989,18.9588244839111" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load PSA_F_Voyage.Paths[Lookup No Match Output]"
+          TopLeft="563.057149802909,251.741179709451">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="164.085719723118,29.8235298300285"
+              Start="0,0"
+              End="156.585719723118,29.8235298300285">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="78.042859861559,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="78.042859861559,0"
+                    Point2="82.042859861559,0"
+                    Point3="82.042859861559,4" />
+                  <mssgle:LineSegment
+                    End="82.042859861559,25.8235298300285" />
+                  <mssgle:CubicBezierSegment
+                    Point1="82.042859861559,25.8235298300285"
+                    Point2="82.042859861559,29.8235298300285"
+                    Point3="86.042859861559,29.8235298300285" />
+                  <mssgle:LineSegment
+                    End="156.585719723118,29.8235298300285" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="26.236473142809,-17.609375,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load PSA_F_Voyage.Paths[Lookup Match Output1]"
+          TopLeft="485.457149802909,272.541179709451">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="56.2857146992974,51.6941189554736"
+              Start="0,0"
+              End="56.2857146992974,44.1941189554736">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.8470594777368" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.8470594777368"
+                    Point2="0,25.8470594777368"
+                    Point3="4,25.8470594777368" />
+                  <mssgle:LineSegment
+                    End="52.2857146992974,25.8470594777368" />
+                  <mssgle:CubicBezierSegment
+                    Point1="52.2857146992974,25.8470594777368"
+                    Point2="56.2857146992974,25.8470594777368"
+                    Point3="56.2857146992974,29.8470594777368" />
+                  <mssgle:LineSegment
+                    End="56.2857146992974,44.1941189554736" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-20.0485293691013,30.8470594777368,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load PSA_F_Voyage\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load PSA_F_Voyage\Lookup F_Shipment">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[F_Shipment]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load PSA_F_Voyage\Lookup Previous">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[F_Voyage]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load PSA_F_Voyage\OLE DB Destination 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load PSA_F_Voyage\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
